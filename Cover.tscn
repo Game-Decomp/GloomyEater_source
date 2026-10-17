@@ -1,0 +1,161 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://FeedRumiaConcept/Background.PNG" type="Texture" id=1]
+[ext_resource path="res://title/Menu.PNG" type="Texture" id=2]
+[ext_resource path="res://title/Title Merged.PNG" type="Texture" id=3]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Hair Back.PNG" type="Texture" id=4]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Base.PNG" type="Texture" id=5]
+[ext_resource path="res://Scenes/MultiSprite.gd" type="Script" id=6]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Mouth.PNG" type="Texture" id=7]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Mouth 2.PNG" type="Texture" id=8]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Mouth 3.PNG" type="Texture" id=9]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Eyes.PNG" type="Texture" id=10]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Eyes 3.PNG" type="Texture" id=11]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Eye 2.PNG" type="Texture" id=12]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Eye 4.png" type="Texture" id=13]
+[ext_resource path="res://FeedRumiaConcept/Rumia/HairFront.PNG" type="Texture" id=14]
+[ext_resource path="res://FeedRumiaConcept/MeatCooked.PNG" type="Texture" id=15]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+
+func _ready():
+	get_tree().paused = true
+"
+
+[node name="Title" type="Control"]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="."]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background2" type="TextureRect" parent="."]
+
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+
+anchor_right = 1.0
+margin_bottom = 73.0
+mouse_filter = 2
+custom_constants/margin_top = 90
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+
+margin_top = 90.0
+margin_right = 800.0
+margin_bottom = 163.0
+size_flags_horizontal = 3
+texture = ExtResource( 3 )
+stretch_mode = 4
+
+[node name="Rumia" type="Node2D" parent="."]
+
+position = Vector2( 481.189, 379.69 )
+
+[node name="Hair Back" type="Sprite" parent="Rumia"]
+
+position = Vector2( 43.5077, -11.532 )
+texture = ExtResource( 4 )
+
+[node name="Base" type="Sprite" parent="Rumia"]
+
+position = Vector2( 11.5568, -70.262 )
+texture = ExtResource( 5 )
+
+[node name="Mouth" type="Node2D" parent="Rumia/Base"]
+
+position = Vector2( -0.580027, 1 )
+script = ExtResource( 6 )
+
+[node name="1" type="Sprite" parent="Rumia/Base/Mouth"]
+
+position = Vector2( -9.5094, 71.9365 )
+texture = ExtResource( 7 )
+
+[node name="2" type="Sprite" parent="Rumia/Base/Mouth"]
+
+visible = false
+position = Vector2( -8.42358, 76.162 )
+texture = ExtResource( 8 )
+
+[node name="3" type="Sprite" parent="Rumia/Base/Mouth"]
+
+visible = false
+position = Vector2( -10.2295, 77.9515 )
+texture = ExtResource( 9 )
+
+[node name="4" type="Sprite" parent="Rumia/Base/Mouth"]
+
+visible = false
+position = Vector2( -10.2295, 77.9515 )
+scale = Vector2( 1, -1 )
+texture = ExtResource( 9 )
+
+[node name="Eyes" type="Node2D" parent="Rumia/Base"]
+
+script = ExtResource( 6 )
+
+[node name="1" type="Sprite" parent="Rumia/Base/Eyes"]
+
+position = Vector2( -3.26575, 16.1305 )
+texture = ExtResource( 10 )
+
+[node name="2" type="Sprite" parent="Rumia/Base/Eyes"]
+
+visible = false
+position = Vector2( -2.16949, 18.5665 )
+texture = ExtResource( 11 )
+
+[node name="3" type="Sprite" parent="Rumia/Base/Eyes"]
+
+visible = false
+position = Vector2( 0.277161, 19.3484 )
+texture = ExtResource( 12 )
+
+[node name="4" type="Sprite" parent="Rumia/Base/Eyes"]
+
+visible = false
+position = Vector2( 0.277161, 19.3484 )
+texture = ExtResource( 13 )
+
+[node name="HairFront" type="Sprite" parent="Rumia/Base"]
+
+position = Vector2( -2.11377, -30.2913 )
+texture = ExtResource( 14 )
+
+[node name="Meat" type="KinematicBody2D" parent="."]
+
+position = Vector2( 401.669, 269.983 )
+collision_mask = 3
+
+[node name="Sprite" type="Sprite" parent="Meat"]
+
+position = Vector2( -135.175, 50.3528 )
+texture = ExtResource( 15 )

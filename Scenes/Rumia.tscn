@@ -1,0 +1,964 @@
+[gd_scene load_steps=65 format=2]
+
+[ext_resource path="res://Scenes/Rumia.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/SoundAPI.gd" type="Script" id=2]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Hair Back.PNG" type="Texture" id=3]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Base_angry.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/MultiSprite.gd" type="Script" id=5]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Mouth.PNG" type="Texture" id=6]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Mouth 2.PNG" type="Texture" id=7]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Mouth 3.PNG" type="Texture" id=8]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Eyes.PNG" type="Texture" id=9]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Eyes 3.PNG" type="Texture" id=10]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Eye 2.PNG" type="Texture" id=11]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Eye 4.png" type="Texture" id=12]
+[ext_resource path="res://FeedRumiaConcept/Rumia/HairFront.PNG" type="Texture" id=13]
+[ext_resource path="res://FeedRumiaConcept/Rumia/Base.PNG" type="Texture" id=14]
+[ext_resource path="res://FeedRumiaConcept/heart.png" type="Texture" id=15]
+
+[sub_resource type="CapsuleShape2D" id=1]
+
+[sub_resource type="Animation" id=2]
+resource_name = "angy"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base/Mouth:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 3, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Base/Eyes:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ -1 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Base:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+
+[sub_resource type="Animation" id=4]
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base/Eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 1, 0 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base/Mouth:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Base/Mouth:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 1 ), Vector2( 1, 1 ), Vector2( 1, -1 ), Vector2( -1, -1 ), Vector2( -1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Base/Mouth:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Base/Mouth:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base/Eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 1, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Base/Mouth:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 2 ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base/Eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 2 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Base/Mouth:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("SoundAPI")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_eat"
+} ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "happy_end"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base/Eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Base/Mouth:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=9]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base/Eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Base/Mouth:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Base/Eyes:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Base/Eyes:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Base/Eyes:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Base/Mouth:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -0.580027, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Base/Mouth:rotation_degrees")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Base/Mouth:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Base/HairFront:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -2.11377, -30.2913 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Base/HairFront:rotation_degrees")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Base/HairFront:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Hair Back:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 43.5077, -11.532 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Hair Back:rotation_degrees")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Hair Back:scale")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Base:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 11.5568, -70.262 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Base:rotation_degrees")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("Base:scale")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("Base:texture")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 14 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "pet"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base/Eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Base/Mouth:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "pet_finish"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base/Eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 1, 0 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "pet_start"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base/Eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Base/Mouth:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("SoundAPI")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_happy"
+} ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "sad"
+length = 5.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base/Eyes:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5, 5.1, 5.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 3, 1, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Base/Mouth:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 5, 5.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 3, 2 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("SoundAPI")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_sad"
+} ]
+}
+
+[sub_resource type="AnimationNodeAdd2" id=14]
+
+[sub_resource type="AnimationNodeAnimation" id=15]
+animation = "blink"
+
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "idle"
+
+[sub_resource type="AnimationNodeOneShot" id=17]
+
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "angy"
+
+[sub_resource type="AnimationNodeAnimation" id=19]
+animation = "blank"
+
+[sub_resource type="AnimationNodeAnimation" id=20]
+animation = "eat_Loop"
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "eat_finish"
+
+[sub_resource type="AnimationNodeAnimation" id=22]
+animation = "eat_start"
+
+[sub_resource type="AnimationNodeAnimation" id=23]
+animation = "happy_end"
+
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "pet"
+
+[sub_resource type="AnimationNodeAnimation" id=25]
+animation = "pet_finish"
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "pet_start"
+
+[sub_resource type="AnimationNodeAnimation" id=27]
+animation = "sad"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=32]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=34]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=35]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=36]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=39]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=40]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=41]
+
+[sub_resource type="AnimationNodeStateMachine" id=42]
+states/angy/node = SubResource( 18 )
+states/angy/position = Vector2( 155, -223 )
+states/blank/node = SubResource( 19 )
+states/blank/position = Vector2( 318, -101 )
+states/eat_Loop/node = SubResource( 20 )
+states/eat_Loop/position = Vector2( 636, 148 )
+states/eat_finish/node = SubResource( 21 )
+states/eat_finish/position = Vector2( 477, 23 )
+states/eat_start/node = SubResource( 22 )
+states/eat_start/position = Vector2( 636, -100 )
+states/happy_end/node = SubResource( 23 )
+states/happy_end/position = Vector2( 477, -223 )
+states/pet/node = SubResource( 24 )
+states/pet/position = Vector2( 12, 154 )
+states/pet_finish/node = SubResource( 25 )
+states/pet_finish/position = Vector2( 155, 18 )
+states/pet_start/node = SubResource( 26 )
+states/pet_start/position = Vector2( 12, -98 )
+states/sad/node = SubResource( 27 )
+states/sad/position = Vector2( 318, -304 )
+transitions = [ "blank", "eat_start", SubResource( 28 ), "eat_start", "eat_Loop", SubResource( 29 ), "eat_Loop", "eat_finish", SubResource( 30 ), "eat_finish", "blank", SubResource( 31 ), "blank", "pet_start", SubResource( 32 ), "pet_finish", "blank", SubResource( 33 ), "pet_start", "pet", SubResource( 34 ), "pet", "pet_finish", SubResource( 35 ), "eat_Loop", "pet", SubResource( 36 ), "pet", "eat_Loop", SubResource( 37 ), "blank", "sad", SubResource( 38 ), "sad", "blank", SubResource( 39 ), "blank", "angy", SubResource( 40 ), "blank", "happy_end", SubResource( 41 ) ]
+start_node = "blank"
+graph_offset = Vector2( -26.62, -260 )
+
+[sub_resource type="AnimationNodeBlendTree" id=43]
+graph_offset = Vector2( -827, 215 )
+nodes/Add_Eat/node = SubResource( 14 )
+nodes/Add_Eat/position = Vector2( -160, 120 )
+nodes/Animation/node = SubResource( 16 )
+nodes/Animation/position = Vector2( -720, 100 )
+"nodes/Animation 2/node" = SubResource( 15 )
+"nodes/Animation 2/position" = Vector2( -720, 260 )
+nodes/Blink/node = SubResource( 17 )
+nodes/Blink/position = Vector2( -480, 140 )
+nodes/Eat_state/node = SubResource( 42 )
+nodes/Eat_state/position = Vector2( -440, 380 )
+nodes/output/position = Vector2( 80, 140 )
+node_connections = [ "output", 0, "Add_Eat", "Add_Eat", 0, "Blink", "Add_Eat", 1, "Eat_state", "Blink", 0, "Animation", "Blink", 1, "Animation 2" ]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=44]
+
+[sub_resource type="Gradient" id=45]
+offsets = PoolRealArray( 0, 0.46988, 0.855422, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=46]
+gradient = SubResource( 45 )
+
+[sub_resource type="ParticlesMaterial" id=47]
+emission_shape = 2
+emission_box_extents = Vector3( 100, 10, 1 )
+flag_disable_z = true
+direction = Vector3( 0, -0.01, 0 )
+gravity = Vector3( 0, -400, 0 )
+initial_velocity = 250.0
+initial_velocity_random = 0.61
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color_ramp = SubResource( 46 )
+
+[sub_resource type="GDScript" id=48]
+script/source = "extends Node2D
+
+signal pet
+signal stop
+
+var isEntered:bool
+var total_mouse_drag:float
+
+var last_mouse_position:Vector2
+var isPet = false
+
+onready var emmitter = $PetParticle
+onready var timer = $PetTimer
+
+var hand_cursor = preload(\"res://FeedRumiaConcept/hand.png\")
+
+func _physics_process(delta):
+	var drag_length = 0 
+	
+	if isEntered and not Input.is_action_pressed(\"mouse_left\"):
+		drag_length += (get_global_mouse_position() - last_mouse_position).length()
+		total_mouse_drag += drag_length
+	
+	if total_mouse_drag > 800 and not isPet:
+		emmitter.emitting = true
+		isPet = true
+		emit_signal(\"pet\")
+	
+	if isEntered and drag_length > 0 and isPet:
+		timer.start()
+	
+	if isEntered and Input.is_action_just_pressed(\"mouse_left\"):
+		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+	
+	if isEntered and Input.is_action_just_released(\"mouse_left\"):
+		Input.set_custom_mouse_cursor(hand_cursor, Input.CURSOR_DRAG)
+		Input.set_default_cursor_shape(Input.CURSOR_DRAG)
+	
+	last_mouse_position = get_global_mouse_position()
+
+
+func _on_PetTimer_timeout():
+	total_mouse_drag = 0
+	emmitter.emitting = false
+	isPet = false
+	emit_signal(\"stop\")
+
+
+func _on_PetArea_mouse_entered():
+	isEntered = true
+	if not Input.is_action_pressed(\"mouse_left\"):
+		Input.set_custom_mouse_cursor(hand_cursor, Input.CURSOR_DRAG)
+		Input.set_default_cursor_shape(Input.CURSOR_DRAG)
+
+
+func _on_PetArea_mouse_exited():
+	isEntered = false
+	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+"
+
+[sub_resource type="CapsuleShape2D" id=49]
+radius = 64.7119
+height = 94.6715
+
+[node name="Rumia" type="Node2D"]
+
+script = ExtResource( 1 )
+
+[node name="SoundAPI" type="Node" parent="."]
+
+script = ExtResource( 2 )
+
+[node name="Hair Back" type="Sprite" parent="."]
+
+position = Vector2( 43.5077, -11.532 )
+texture = ExtResource( 3 )
+
+[node name="Base" type="Sprite" parent="."]
+
+position = Vector2( 11.5568, -70.262 )
+texture = ExtResource( 4 )
+
+[node name="Mouth" type="Node2D" parent="Base"]
+
+position = Vector2( -0.580027, 1 )
+script = ExtResource( 5 )
+frame = 3
+
+[node name="1" type="Sprite" parent="Base/Mouth"]
+
+visible = false
+position = Vector2( -9.5094, 71.9365 )
+texture = ExtResource( 6 )
+
+[node name="2" type="Sprite" parent="Base/Mouth"]
+
+visible = false
+position = Vector2( -8.42358, 76.162 )
+texture = ExtResource( 7 )
+
+[node name="3" type="Sprite" parent="Base/Mouth"]
+
+visible = false
+position = Vector2( -10.2295, 77.9515 )
+texture = ExtResource( 8 )
+
+[node name="4" type="Sprite" parent="Base/Mouth"]
+
+position = Vector2( -10.2295, 77.9515 )
+scale = Vector2( 1, -1 )
+texture = ExtResource( 8 )
+
+[node name="Eyes" type="Node2D" parent="Base"]
+
+script = ExtResource( 5 )
+frame = -1
+
+[node name="1" type="Sprite" parent="Base/Eyes"]
+
+visible = false
+position = Vector2( -3.26575, 16.1305 )
+texture = ExtResource( 9 )
+
+[node name="2" type="Sprite" parent="Base/Eyes"]
+
+visible = false
+position = Vector2( -2.16949, 18.5665 )
+texture = ExtResource( 10 )
+
+[node name="3" type="Sprite" parent="Base/Eyes"]
+
+visible = false
+position = Vector2( 0.277161, 19.3484 )
+texture = ExtResource( 11 )
+
+[node name="4" type="Sprite" parent="Base/Eyes"]
+
+visible = false
+position = Vector2( 0.277161, 19.3484 )
+texture = ExtResource( 12 )
+
+[node name="HairFront" type="Sprite" parent="Base"]
+
+position = Vector2( -2.11377, -30.2913 )
+texture = ExtResource( 13 )
+
+[node name="EatArea" type="Area2D" parent="."]
+
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EatArea"]
+
+visible = false
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+anims/angy = SubResource( 2 )
+anims/blank = SubResource( 3 )
+anims/blink = SubResource( 4 )
+anims/eat_Loop = SubResource( 5 )
+anims/eat_finish = SubResource( 6 )
+anims/eat_start = SubResource( 7 )
+anims/happy_end = SubResource( 8 )
+anims/idle = SubResource( 9 )
+anims/pet = SubResource( 10 )
+anims/pet_finish = SubResource( 11 )
+anims/pet_start = SubResource( 12 )
+anims/sad = SubResource( 13 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+
+tree_root = SubResource( 43 )
+anim_player = NodePath("../AnimationPlayer")
+parameters/Add_Eat/add_amount = 1.0
+parameters/Blink/active = false
+parameters/Eat_state/playback = SubResource( 44 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+
+position = Vector2( 15.3506, -115.464 )
+emitting = false
+amount = 30
+visibility_rect = Rect2( -250, -600, 500, 800 )
+process_material = SubResource( 47 )
+texture = ExtResource( 15 )
+
+[node name="EatTimer" type="Timer" parent="."]
+
+wait_time = 2.9
+one_shot = true
+
+[node name="BlinkTimer" type="Timer" parent="."]
+
+one_shot = true
+autostart = true
+
+[node name="Node2D" type="Node2D" parent="."]
+
+position = Vector2( 1.88989, 2.20485 )
+script = SubResource( 48 )
+
+[node name="PetArea" type="Area2D" parent="Node2D"]
+
+position = Vector2( 13.4929, -115.087 )
+rotation = 1.5708
+monitorable = false
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/PetArea"]
+
+shape = SubResource( 49 )
+
+[node name="PetParticle" type="Particles2D" parent="Node2D"]
+
+position = Vector2( 13.4607, -117.669 )
+emitting = false
+amount = 7
+visibility_rect = Rect2( -250, -600, 500, 800 )
+process_material = SubResource( 47 )
+texture = ExtResource( 15 )
+
+[node name="PetTimer" type="Timer" parent="Node2D"]
+
+wait_time = 0.15
+one_shot = true
+
+[connection signal="area_entered" from="EatArea" to="." method="_on_EatArea_area_entered"]
+[connection signal="timeout" from="EatTimer" to="." method="_on_EatTimer_timeout"]
+[connection signal="timeout" from="BlinkTimer" to="." method="_on_BlinkTimer_timeout"]
+[connection signal="pet" from="Node2D" to="." method="_on_Node2D_pet"]
+[connection signal="stop" from="Node2D" to="." method="_on_Node2D_stop"]
+[connection signal="mouse_entered" from="Node2D/PetArea" to="Node2D" method="_on_PetArea_mouse_entered"]
+[connection signal="mouse_exited" from="Node2D/PetArea" to="Node2D" method="_on_PetArea_mouse_exited"]
+[connection signal="timeout" from="Node2D/PetTimer" to="Node2D" method="_on_PetTimer_timeout"]

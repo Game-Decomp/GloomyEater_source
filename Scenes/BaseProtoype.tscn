@@ -1,0 +1,475 @@
+[gd_scene load_steps=34 format=2]
+
+[ext_resource path="res://Scenes/World.gd" type="Script" id=1]
+[ext_resource path="res://FeedRumiaConcept/Background.PNG" type="Texture" id=2]
+[ext_resource path="res://GrabText.tscn" type="PackedScene" id=3]
+[ext_resource path="res://CookText.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/ThrowSign.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Rumia.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Table.tscn" type="PackedScene" id=7]
+[ext_resource path="res://FeedRumiaConcept/Fingers/Left Finger.PNG" type="Texture" id=8]
+[ext_resource path="res://FeedRumiaConcept/Fingers/Right Finger.PNG" type="Texture" id=9]
+[ext_resource path="res://Scenes/NoEatZone.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/Heater.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Food.gd" type="Script" id=12]
+[ext_resource path="res://FeedRumiaConcept/FoodBox/Back.PNG" type="Texture" id=13]
+[ext_resource path="res://FeedRumiaConcept/FoodBox/Front.PNG" type="Texture" id=14]
+[ext_resource path="res://Scenes/HungerBar.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/GoodEndSequence.gd" type="Script" id=16]
+[ext_resource path="res://maskedTransition.tres" type="Material" id=17]
+[ext_resource path="res://transition.png" type="Texture" id=18]
+[ext_resource path="res://Transition.tscn" type="PackedScene" id=19]
+[ext_resource path="res://title/Bitter-Black.ttf" type="DynamicFontData" id=20]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+onready var timer = $Timer
+
+const cloudScene = preload(\"res://Scenes/Cloud.tscn\")
+
+
+func _ready():
+	randomize()
+	for _i in range(0, 5):
+		var cloud = cloudScene.instance()
+		cloud.global_position = Vector2(
+			rand_range(0, 1000),
+			rand_range(0,  200)
+		)
+		add_child(cloud)
+
+
+func _on_Timer_timeout():
+	var cloud = cloudScene.instance()
+	cloud.global_position = Vector2(
+		1000,
+		rand_range(0, 200)
+	)
+	add_child(cloud)
+	timer.start(rand_range(1, 60))
+"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 154.636, 25.773 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 4.00633, 47.5587 )
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends Area2D
+
+onready var desired_pos = $Position2D
+
+var isMouseEntered = false
+
+var meat = []
+
+
+func _process(delta):
+	if meat.size() == 0:
+		return
+	
+	if Input.is_action_just_pressed(\"mouse_left\") and isMouseEntered:
+		if meat.size() == 1:
+			meat[0].isMouseEntered = true
+			meat[0].isDrag = true
+			meat[0].emit_signal(\"grabbed\", meat[0].isCooked)
+
+
+func _on_EasyModo_body_entered(body):
+	if body.collision_layer == collision_mask:
+		meat.append(body)
+
+
+func _on_EasyModo_body_exited(body):
+	meat.erase(body)
+
+
+func _on_EasyModo_mouse_entered():
+	isMouseEntered = true
+
+
+func _on_EasyModo_mouse_exited():
+	isMouseEntered = false
+"
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 49.0936, 46.0326 )
+
+[sub_resource type="Animation" id=7]
+length = 4.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("transition:material:shader_param/threshold")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3.2, 3.5, 4, 4.5, 4.6 ),
+"transitions": PoolRealArray( 0.5, 0.5, 2, 2, 1, 1 ),
+"update": 0,
+"values": [ 0.8, 0.06, 0.125, 0.125, 0.0, 0.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_happy"
+} ]
+}
+
+[sub_resource type="GDScript" id=8]
+script/source = "extends Node
+
+
+onready var angy_tween = $Tween
+
+var isActivated = false
+
+
+func the_crunch():
+	SoundManager.play_crunch()
+
+
+func _on_HungerBar_lose():
+	if isActivated:
+		return
+	
+	SoundManager.fade_out_music(3)
+	
+	isActivated = true
+	
+	$InputBlocker.show()
+	$transition.show()
+	get_parent().get_node(\"Final/btn_title\").hide()
+	
+	$AnimationPlayer.play(\"bad_end\")
+	get_parent().get_node(\"Food\").drop_everything()
+	get_parent().get_node(\"Rumia\").now_angy()
+	
+	var rumia = get_parent().get_node(\"Rumia\")
+	
+	angy_tween.interpolate_property(
+		rumia, \"position\", 
+		rumia.global_position, 
+		Vector2(rumia.global_position.x, 321),
+		3,
+		Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+	angy_tween.start()
+	
+	yield(get_tree().create_timer(3),\"timeout\")
+	
+	$transition.global_position = get_parent().get_node(\"Rumia/Base/Mouth/1\").global_position
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	yield(get_tree().create_timer(3),\"timeout\")
+	get_tree().change_scene(\"res://Ending/BadEnd.tscn\")
+"
+
+[sub_resource type="Shader" id=9]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform sampler2D mask : hint_albedo;
+uniform float threshold : hint_range(0.0, 1.0);
+
+void fragment() {
+	float alpha = step(threshold, texture(mask, UV).b);
+	COLOR = vec4(0.0, 0.0, 0.0, alpha);
+}"
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
+shader_param/threshold = 0.8
+shader_param/mask = ExtResource( 18 )
+
+[sub_resource type="Animation" id=11]
+length = 4.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("transition:material:shader_param/threshold")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3, 4, 4.1 ),
+"transitions": PoolRealArray( 1, 2, 1, 1 ),
+"update": 0,
+"values": [ 0.8, 0.8, 0.0, 0.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3.8 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "the_crunch"
+} ]
+}
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="DynamicFont" id=13]
+size = 24
+font_data = ExtResource( 20 )
+
+[node name="World" type="Node"]
+
+script = ExtResource( 1 )
+
+[node name="Background" type="Node2D" parent="."]
+
+script = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Background"]
+
+z_index = -2
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Timer" type="Timer" parent="Background"]
+
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="GrabText" parent="." instance=ExtResource( 3 )]
+
+visible = false
+modulate = Color( 1, 1, 1, 0.839216 )
+position = Vector2( 62.3629, 342.105 )
+scale = Vector2( 0.25, 0.25 )
+
+[node name="CookText" parent="." instance=ExtResource( 4 )]
+
+visible = false
+modulate = Color( 1, 1, 1, 0.866667 )
+self_modulate = Color( 1, 1, 1, 0.745098 )
+light_mask = -2147483647
+position = Vector2( 221.997, 331.313 )
+scale = Vector2( 0.25, 0.25 )
+
+[node name="ThrowSign" parent="." instance=ExtResource( 5 )]
+
+visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+position = Vector2( 233.498, 217.897 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Rumia" parent="." instance=ExtResource( 6 )]
+
+position = Vector2( 540.878, 478.288 )
+
+[node name="AnimationTree" parent="Rumia" index="5"]
+
+parameters/Eat_state/playback = SubResource( 2 )
+
+[node name="Focus" type="Position2D" parent="Rumia"]
+
+position = Vector2( 21.1893, -65.157 )
+
+[node name="Table" parent="." instance=ExtResource( 7 )]
+
+[node name="Left Finger" type="Sprite" parent="Table"]
+
+position = Vector2( 43.093, -67.652 )
+texture = ExtResource( 8 )
+
+[node name="Right Finger" type="Sprite" parent="Table"]
+
+position = Vector2( 261.212, -64.844 )
+texture = ExtResource( 9 )
+
+[node name="NoEatZone" type="Area2D" parent="Table"]
+
+position = Vector2( 149.217, -46.0432 )
+monitorable = false
+collision_mask = 4
+script = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table/NoEatZone"]
+
+position = Vector2( 0, 2.22726 )
+shape = SubResource( 3 )
+
+[node name="Heater" parent="." instance=ExtResource( 11 )]
+
+position = Vector2( 278.832, 518.454 )
+
+[node name="Food" type="Node2D" parent="."]
+
+script = ExtResource( 12 )
+
+[node name="PatienceTimer" type="Timer" parent="Food"]
+
+one_shot = true
+
+[node name="WaitFoodTimer" type="Timer" parent="Food"]
+
+one_shot = true
+
+[node name="FoodBox" type="StaticBody2D" parent="."]
+
+position = Vector2( 59, 490 )
+
+[node name="Back" type="Sprite" parent="FoodBox"]
+
+position = Vector2( 0.707108, -23.6881 )
+z_index = -1
+texture = ExtResource( 13 )
+
+[node name="Front" type="Sprite" parent="FoodBox"]
+
+texture = ExtResource( 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FoodBox"]
+
+position = Vector2( -54.1428, -7.52209 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="FoodBox"]
+
+position = Vector2( 55.6164, -8.81751 )
+shape = SubResource( 4 )
+
+[node name="EasyModo" type="Area2D" parent="."]
+
+position = Vector2( 58.8667, 479.884 )
+collision_mask = 2
+script = SubResource( 5 )
+
+[node name="Position2D" type="Position2D" parent="EasyModo"]
+
+position = Vector2( -0.198433, -45.6378 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EasyModo"]
+
+shape = SubResource( 6 )
+
+[node name="HungerBar" parent="." instance=ExtResource( 15 )]
+
+[node name="GoodEndSequence" type="Node" parent="."]
+
+script = ExtResource( 16 )
+
+[node name="InputBlocker" type="Control" parent="GoodEndSequence"]
+
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="transition" type="Sprite" parent="GoodEndSequence"]
+
+visible = false
+material = ExtResource( 17 )
+position = Vector2( 567.077, 396.077 )
+z_index = 3
+texture = ExtResource( 18 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GoodEndSequence"]
+
+anims/good_end = SubResource( 7 )
+
+[node name="BadEndSequence" type="Node" parent="."]
+
+script = SubResource( 8 )
+
+[node name="InputBlocker" type="Control" parent="BadEndSequence"]
+
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="transition" type="Sprite" parent="BadEndSequence"]
+
+visible = false
+material = SubResource( 10 )
+position = Vector2( 567.077, 396.077 )
+z_index = 3
+texture = ExtResource( 18 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BadEndSequence"]
+
+anims/bad_end = SubResource( 11 )
+
+[node name="Tween" type="Tween" parent="BadEndSequence"]
+
+[node name="Transition" parent="." instance=ExtResource( 19 )]
+
+visible = false
+position = Vector2( 400, 300 )
+
+[node name="Final" type="MarginContainer" parent="."]
+
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -49.0
+margin_right = 158.0
+mouse_filter = 2
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn_title" type="Button" parent="Final"]
+
+margin_left = 10.0
+margin_right = 153.0
+margin_bottom = 47.0
+size_flags_horizontal = 2
+custom_styles/hover = SubResource( 12 )
+custom_styles/pressed = SubResource( 12 )
+custom_styles/focus = SubResource( 12 )
+custom_styles/disabled = SubResource( 12 )
+custom_styles/normal = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 0.835294, 0.258824, 1 )
+text = "Back to Title"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="timeout" from="Background/Timer" to="Background" method="_on_Timer_timeout"]
+[connection signal="ate" from="Rumia" to="." method="_on_Rumia_ate"]
+[connection signal="finish_eat" from="Rumia" to="Food" method="_on_Rumia_finish_eat"]
+[connection signal="pet" from="Rumia/Node2D" to="Food" method="_on_Node2D_pet"]
+[connection signal="stop" from="Rumia/Node2D" to="Food" method="_on_Node2D_stop"]
+[connection signal="area_entered" from="Table/NoEatZone" to="Table/NoEatZone" method="_on_NoEatZone_area_entered"]
+[connection signal="area_exited" from="Table/NoEatZone" to="Table/NoEatZone" method="_on_NoEatZone_area_exited"]
+[connection signal="timeout" from="Food/PatienceTimer" to="Food" method="_on_PatienceTimer_timeout"]
+[connection signal="timeout" from="Food/WaitFoodTimer" to="Food" method="_on_WaitFoodTimer_timeout"]
+[connection signal="body_entered" from="EasyModo" to="EasyModo" method="_on_EasyModo_body_entered"]
+[connection signal="body_exited" from="EasyModo" to="EasyModo" method="_on_EasyModo_body_exited"]
+[connection signal="mouse_entered" from="EasyModo" to="EasyModo" method="_on_EasyModo_mouse_entered"]
+[connection signal="mouse_exited" from="EasyModo" to="EasyModo" method="_on_EasyModo_mouse_exited"]
+[connection signal="lose" from="HungerBar" to="BadEndSequence" method="_on_HungerBar_lose"]
+[connection signal="win" from="HungerBar" to="GoodEndSequence" method="_on_HungerBar_win"]
+[connection signal="animation_finished" from="GoodEndSequence/AnimationPlayer" to="GoodEndSequence" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="BadEndSequence/AnimationPlayer" to="BadEndSequence" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="pressed" from="Final/btn_title" to="." method="_on_btn_title_pressed"]
+
+[editable path="Rumia"]

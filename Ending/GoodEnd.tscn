@@ -1,0 +1,748 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://title/Menu.PNG" type="Texture" id=1]
+[ext_resource path="res://Ending/RumiaHappy.PNG" type="Texture" id=2]
+[ext_resource path="res://title/Bitter-Black.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Ending/RumiaYawn.PNG" type="Texture" id=4]
+[ext_resource path="res://Ending/RumiaYawn2.PNG" type="Texture" id=5]
+[ext_resource path="res://Ending/ReimuSigh.PNG" type="Texture" id=6]
+[ext_resource path="res://Ending/ReimuSmile.PNG" type="Texture" id=7]
+[ext_resource path="res://Ending/GoodEnd.PNG" type="Texture" id=8]
+[ext_resource path="res://title/Bitter-SemiBold.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Credits.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Transition.tscn" type="PackedScene" id=11]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+var have_pressed = false
+
+func _ready():
+	Globals.seen_ending = true
+	
+	$Transition.show()
+	$Transition.fade_out()
+	yield(get_tree().create_timer(1),\"timeout\")
+	
+	SoundManager.play_piano()
+	$AnimationPlayer.play(\"end_sequence\")
+
+
+
+func _on_btn_next_pressed():
+	SoundManager.play_click()
+	$CenterContainer.hide()
+	$First_Next.hide()
+	$DevNote.show()
+
+
+func _on_btn_next2_pressed():
+	SoundManager.play_click()
+	$DevNote.hide()
+	$Credits.show()
+
+
+func _on_btn_title_pressed():
+	if have_pressed:
+		return
+	
+	have_pressed = true
+	
+	SoundManager.play_click()
+	$Transition.fade_in()
+	yield(get_tree().create_timer(1), \"timeout\")
+	get_tree().change_scene(\"res://Scenes/Title.tscn\")
+"
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="DynamicFont" id=4]
+size = 40
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=5]
+length = 37.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("CenterContainer/CenterContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 30, 35 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CenterContainer/VBoxContainer7:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 25, 25.5, 29, 29.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CenterContainer/VBoxContainer5:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 19.5, 20, 25.5, 26 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CenterContainer/VBoxContainer3:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 17, 17.5, 18.5, 19 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CenterContainer/VBoxContainer2:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 14, 14.5, 17.5, 18 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CenterContainer/VBoxContainer6:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 6.5, 7.2, 13, 13.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CenterContainer/VBoxContainer:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1, 7.2, 7.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("CenterContainer/VBoxContainer/HBoxContainer/Label:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("CenterContainer/VBoxContainer/HBoxContainer/Label2:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 2.7, 3.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("CenterContainer/VBoxContainer/Label2:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 4.7, 5.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("CenterContainer/VBoxContainer6/Label3:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 8, 8.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("CenterContainer/VBoxContainer6/Label2:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 10, 10.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("CenterContainer/VBoxContainer2/Label:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 15, 15.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("CenterContainer/VBoxContainer5/Label3:modulate")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 19.5, 20, 21, 21.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("CenterContainer/VBoxContainer5/Label:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 21.5, 22.1, 25, 25.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("CenterContainer/VBoxContainer5/Label2:modulate")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 21.5, 22.1, 25, 25.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("CenterContainer/VBoxContainer5/Label3:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 21.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("CenterContainer/VBoxContainer5/Label:visible")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0, 21.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("CenterContainer/VBoxContainer5/Label2:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("CenterContainer/VBoxContainer7/Label2:modulate")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0, 27, 27.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("First_Next:visible")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0, 37 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="DynamicFont" id=6]
+size = 40
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 22
+font_data = ExtResource( 9 )
+
+[node name="GoodEnd" type="Node"]
+
+script = SubResource( 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+
+modulate = Color( 0.584314, 0.713726, 0.784314, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 165.0
+margin_top = 63.0
+margin_right = 634.0
+margin_bottom = 537.0
+
+[node name="TextureButton" type="TextureRect" parent="CenterContainer/VBoxContainer"]
+
+margin_right = 469.0
+margin_bottom = 388.0
+texture = ExtResource( 2 )
+stretch_mode = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+
+margin_top = 392.0
+margin_right = 469.0
+margin_bottom = 431.0
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 100.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 2 )
+text = "There."
+align = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 104.0
+margin_right = 469.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 2 )
+text = " Now, are you satisfied?"
+align = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 435.0
+margin_right = 469.0
+margin_bottom = 474.0
+custom_fonts/font = SubResource( 2 )
+text = "Why are you here anyway?"
+align = 1
+
+[node name="VBoxContainer6" type="VBoxContainer" parent="CenterContainer"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 182.0
+margin_top = 63.0
+margin_right = 618.0
+margin_bottom = 537.0
+
+[node name="TextureButton" type="TextureRect" parent="CenterContainer/VBoxContainer6"]
+
+margin_right = 436.0
+margin_bottom = 388.0
+texture = ExtResource( 2 )
+stretch_mode = 4
+
+[node name="Label3" type="Label" parent="CenterContainer/VBoxContainer6"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 392.0
+margin_right = 436.0
+margin_bottom = 431.0
+custom_fonts/font = SubResource( 2 )
+text = "If you want some food,"
+align = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer6"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 435.0
+margin_right = 436.0
+margin_bottom = 474.0
+custom_fonts/font = SubResource( 2 )
+text = "then go somewhere else..."
+align = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 182.0
+margin_top = 89.0
+margin_right = 618.0
+margin_bottom = 511.0
+
+[node name="TextureButton" type="TextureRect" parent="CenterContainer/VBoxContainer2"]
+
+margin_right = 436.0
+margin_bottom = 379.0
+texture = ExtResource( 4 )
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer2"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 383.0
+margin_right = 436.0
+margin_bottom = 422.0
+custom_fonts/font = SubResource( 2 )
+text = ". . ."
+align = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 182.0
+margin_top = 89.0
+margin_right = 618.0
+margin_bottom = 511.0
+
+[node name="TextureButton" type="TextureRect" parent="CenterContainer/VBoxContainer3"]
+
+margin_right = 436.0
+margin_bottom = 379.0
+texture = ExtResource( 5 )
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer3"]
+
+margin_top = 383.0
+margin_right = 436.0
+margin_bottom = 422.0
+custom_fonts/font = SubResource( 2 )
+text = ". . ."
+align = 1
+
+[node name="VBoxContainer5" type="VBoxContainer" parent="CenterContainer"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 182.0
+margin_top = 67.0
+margin_right = 618.0
+margin_bottom = 532.0
+
+[node name="TextureButton" type="TextureRect" parent="CenterContainer/VBoxContainer5"]
+
+margin_right = 436.0
+margin_bottom = 379.0
+texture = ExtResource( 6 )
+stretch_mode = 4
+
+[node name="Label3" type="Label" parent="CenterContainer/VBoxContainer5"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 383.0
+margin_right = 436.0
+margin_bottom = 422.0
+custom_fonts/font = SubResource( 2 )
+text = "*sigh*"
+align = 1
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer5"]
+
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 383.0
+margin_right = 436.0
+margin_bottom = 422.0
+custom_fonts/font = SubResource( 2 )
+text = "There goes my entire"
+align = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer5"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 426.0
+margin_right = 436.0
+margin_bottom = 465.0
+custom_fonts/font = SubResource( 2 )
+text = "stock of food for the stall..."
+align = 1
+
+[node name="VBoxContainer7" type="VBoxContainer" parent="CenterContainer"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 182.0
+margin_top = 67.0
+margin_right = 618.0
+margin_bottom = 532.0
+
+[node name="TextureButton" type="TextureRect" parent="CenterContainer/VBoxContainer7"]
+
+margin_right = 436.0
+margin_bottom = 379.0
+texture = ExtResource( 7 )
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer7"]
+
+margin_top = 383.0
+margin_right = 436.0
+margin_bottom = 422.0
+custom_fonts/font = SubResource( 2 )
+text = ". . . "
+align = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer7"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 426.0
+margin_right = 436.0
+margin_bottom = 465.0
+custom_fonts/font = SubResource( 2 )
+text = "Maybe this isn't so bad..."
+align = 1
+
+[node name="CenterContainer" type="TextureRect" parent="CenterContainer"]
+
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 102.0
+margin_top = 82.0
+margin_right = 697.0
+margin_bottom = 517.0
+texture = ExtResource( 8 )
+
+[node name="First_Next" type="MarginContainer" parent="."]
+
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -69.0
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer2" type="CenterContainer" parent="First_Next"]
+
+margin_right = 800.0
+margin_bottom = 49.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn_next" type="Button" parent="First_Next/CenterContainer2"]
+
+margin_left = 354.0
+margin_right = 446.0
+margin_bottom = 49.0
+size_flags_horizontal = 2
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 0.835294, 0.258824, 1 )
+text = "Next"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+anims/end_sequence = SubResource( 5 )
+
+[node name="DevNote" type="Control" parent="."]
+
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DevNotes" type="MarginContainer" parent="DevNote"]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 40
+custom_constants/margin_top = 40
+custom_constants/margin_left = 40
+custom_constants/margin_bottom = 80
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DevNote/DevNotes"]
+
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 760.0
+margin_bottom = 523.0
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="DevNote/DevNotes/VBoxContainer"]
+
+margin_right = 720.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 6 )
+text = "Afterword"
+
+[node name="Label2" type="Label" parent="DevNote/DevNotes/VBoxContainer"]
+
+margin_top = 59.0
+margin_right = 720.0
+margin_bottom = 446.0
+custom_fonts/font = SubResource( 7 )
+text = "Here it is! My third Touhou fan game. The aim for this game is to help people wind down and have fun. I'm glad that this time, I have a few friends who can help and support me. Thank you!
+
+This game is heavily inspired by many Rumia games I've seen on Twitch streams. The Rumia games I saw there in my opinion are all cute, amazing, and wholesome. So I decided to also create one myself.
+
+At first, I wanted to have Mystia to be the one cooking behind the stall. But, this idea will shape Rumia as the \"bad guy\". So, I scraped that idea out, and have Reimu take the stall.
+
+P.S. Did you know you can headpat Rumia? (Don't make her cry!)"
+align = 3
+autowrap = true
+
+[node name="Label3" type="Label" parent="DevNote/DevNotes/VBoxContainer"]
+
+margin_top = 456.0
+margin_right = 720.0
+margin_bottom = 483.0
+custom_fonts/font = SubResource( 7 )
+text = "-FerdysLab"
+align = 2
+autowrap = true
+
+[node name="Second_Next" type="MarginContainer" parent="DevNote"]
+
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -800.0
+margin_top = -69.0
+custom_constants/margin_right = 0
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DevNote/Second_Next"]
+
+margin_right = 800.0
+margin_bottom = 49.0
+
+[node name="Control" type="Control" parent="DevNote/Second_Next/HBoxContainer"]
+
+margin_right = 663.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="btn_next" type="Button" parent="DevNote/Second_Next/HBoxContainer"]
+
+margin_left = 667.0
+margin_right = 759.0
+margin_bottom = 49.0
+size_flags_horizontal = 2
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 0.835294, 0.258824, 1 )
+text = "Next"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Credits" parent="." instance=ExtResource( 10 )]
+
+visible = false
+
+[node name="VBoxContainer2" parent="Credits/Credits/VBoxContainer/HBoxContainer/ScrollContainer" index="0"]
+
+margin_right = 348.0
+
+[node name="Label" parent="Credits/Credits/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer" index="0"]
+
+margin_right = 348.0
+margin_bottom = 592.0
+
+[node name="Transition" parent="." instance=ExtResource( 11 )]
+
+visible = false
+position = Vector2( 400, 300 )
+
+[connection signal="pressed" from="First_Next/CenterContainer2/btn_next" to="." method="_on_btn_next_pressed"]
+[connection signal="pressed" from="DevNote/Second_Next/HBoxContainer/btn_next" to="." method="_on_btn_next2_pressed"]
+[connection signal="pressed" from="Credits/Final/CenterContainer2/btn_title" to="." method="_on_btn_title_pressed"]
+
+[editable path="Credits"]

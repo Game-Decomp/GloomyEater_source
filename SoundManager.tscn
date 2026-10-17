@@ -1,0 +1,110 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://SoundManager.gd" type="Script" id=1]
+[ext_resource path="res://Sound/Music/2hu-final-final.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Sound/Music/2hu_intro.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Sound/Sizzle_Sound_lopp.tres" type="AudioStream" id=4]
+[ext_resource path="res://Sound/Drop.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sound/jump1.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sound/jump2.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sound/jump3.wav" type="AudioStream" id=8]
+[ext_resource path="res://Sound/jump4.wav" type="AudioStream" id=9]
+[ext_resource path="res://Sound/happy.wav" type="AudioStream" id=10]
+[ext_resource path="res://Sound/eaten.wav" type="AudioStream" id=11]
+[ext_resource path="res://Sound/click.wav" type="AudioStream" id=12]
+[ext_resource path="res://Sound/sad.wav" type="AudioStream" id=13]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+onready var sound_players = [
+	$\"1\", $\"2\", $\"3\", $\"4\"
+]
+
+func _ready():
+	randomize()
+
+
+func play():
+	var index = randi()%4
+	sound_players[index].stop()
+	sound_players[index].play()
+"
+
+[node name="SoundManager" type="Node"]
+
+script = ExtResource( 1 )
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 2 )
+bus = "Music"
+
+[node name="PianoPlayer" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 3 )
+bus = "Music"
+
+[node name="SizzleSound" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 4 )
+volume_db = 6.0
+bus = "Sfx"
+
+[node name="SizzleSound2" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 4 )
+volume_db = 6.0
+bus = "Sfx"
+
+[node name="DropSound" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 5 )
+volume_db = -9.0
+bus = "Sfx"
+
+[node name="EatSound" type="Node" parent="."]
+
+script = SubResource( 1 )
+
+[node name="1" type="AudioStreamPlayer" parent="EatSound"]
+
+stream = ExtResource( 6 )
+bus = "Sfx"
+
+[node name="2" type="AudioStreamPlayer" parent="EatSound"]
+
+stream = ExtResource( 7 )
+bus = "Sfx"
+
+[node name="3" type="AudioStreamPlayer" parent="EatSound"]
+
+stream = ExtResource( 8 )
+bus = "Sfx"
+
+[node name="4" type="AudioStreamPlayer" parent="EatSound"]
+
+stream = ExtResource( 9 )
+bus = "Sfx"
+
+[node name="HappySound" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 10 )
+bus = "Sfx"
+
+[node name="CrunchSound" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 11 )
+bus = "Sfx"
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 12 )
+bus = "Sfx"
+
+[node name="SadSound" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 13 )
+bus = "Sfx"
+
+[node name="FadeTween" type="Tween" parent="."]

@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://title/Bitter-Black.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://FeedRumiaConcept/Throw.png" type="Texture" id=2]
+
+[sub_resource type="DynamicFont" id=2]
+size = 128
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "New Anim"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Throw:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 2 ),
+"update": 0,
+"values": [ Vector2( 0, -24.841 ), Vector2( -111.114, 72.6017 ) ]
+}
+
+[node name="ThrowSign" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+
+margin_left = -146.371
+margin_top = -213.546
+margin_right = 157.629
+margin_bottom = -59.5462
+custom_fonts/font = SubResource( 2 )
+text = "Lob"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Throw" type="Sprite" parent="."]
+
+position = Vector2( -54.7709, 23.1909 )
+rotation = -0.690851
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+autoplay = "New Anim"
+"anims/New Anim" = SubResource( 3 )
